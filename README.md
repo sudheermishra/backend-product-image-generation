@@ -32,6 +32,40 @@ Input: product page URL + reference image. Backend scrapes the URL, uses Gemini 
 
 **Response:** Image bytes (e.g. PNG).
 
+### Leonardo image generation — `POST /api/images/leonardo`
+
+Direct proxy to Leonardo image generation. Frontend sends the Leonardo API key and full payload; backend forwards it and returns Leonardo's JSON.
+
+**Body (JSON):**
+
+Either:
+
+```json
+{
+  "apiKey": "LEONARDO_API_KEY",
+  "payload": {
+    "modelId": "...",
+    "prompt": "...",
+    "num_images": 4,
+    "width": 1024,
+    "height": 1024
+  }
+}
+```
+
+or:
+
+```json
+{
+  "apiKey": "LEONARDO_API_KEY",
+  "modelId": "...",
+  "prompt": "...",
+  "num_images": 4
+}
+```
+
+All fields except `apiKey` are passed through to Leonardo as-is.
+
 ### Video generation — `POST /api/videos/generate`
 
 Input: text prompt + image. Backend sends them to Veo 3 (Gemini) and returns the generated video.
